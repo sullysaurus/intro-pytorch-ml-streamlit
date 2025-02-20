@@ -41,9 +41,9 @@ def main():
     
     with st.expander("📚 Introduction"):
         st.markdown("""
-# Welcome to Intro to PyTorch for Machine Learning
+   # Welcome to Intro to PyTorch for Machine Learning
 
-In this lab, you'll embark on a journey into the world of deep learning using PyTorch, a powerful framework that enables rapid experimentation and efficient model development. Our mission is to guide you through the foundational concepts and practical skills necessary to build machine learning models using PyTorch's intuitive and flexible tools.
+In this lab, you'll embark on a journey into the world of deep learning using PyTorch, a powerful framework that enables rapid experimentation and efficient model development. Our mission is to guide you through the foundational concepts and practical skills necessary to build an AI assistant—one that can process and understand complex data like text, audio, and images, much like the human brain.
 
 ## Overview
 
@@ -51,7 +51,7 @@ Neural networks are inspired by the biological neural networks of the human brai
 
 - **Neurons and Layers:** Discover the basic building blocks of neural networks. Learn how individual neurons process inputs through weights, biases, and activation functions.
 - **Activation Functions:** Understand why non-linear activation functions such as ReLU, Sigmoid, Tanh, and Softmax are essential for capturing complex patterns in data.
-- **Feedforward Neural Networks:** Construct and train a simple feedforward network that transforms raw inputs into meaningful outputs.
+- **Feedforward Neural Networks:** Construct and train a simple feedforward network that transforms raw inputs into actionable outputs—similar to how an AI assistant interprets user commands.
 - **Model Parameters and Weights:** Delve into the inner workings of model parameters. Learn how adjustments to weights and biases directly influence the network's predictions and overall performance.
 - **Data Handling with Tensors:** Master the use of tensors, PyTorch's core data structure, which facilitates efficient computation and automatic differentiation.
 - **Training a Neural Network:** Gain practical experience in training a model. Learn about loss functions, gradient descent, and optimization techniques that iteratively improve the network's performance.
@@ -60,12 +60,12 @@ Neural networks are inspired by the biological neural networks of the human brai
 ## What You Will Achieve
 
 By the end of this lab, you will:
-- Develop a strong conceptual foundation of how neural networks operate
-- Gain hands-on experience implementing various components of neural networks in PyTorch
-- Learn how to adjust and optimize model parameters to enhance performance
-- Understand the complete cycle of training, validating, and evaluating machine learning models
+- Develop a strong conceptual foundation of how neural networks operate.
+- Gain hands-on experience implementing various components of neural networks in PyTorch.
+- Learn how to adjust and optimize model parameters to enhance performance.
+- Understand the complete cycle of training, validating, and evaluating a model—skills essential for building robust AI assistants.
 
-Whether you're just starting your journey in machine learning or looking to expand your deep learning toolkit, this comprehensive introduction sets the stage for your journey into building powerful neural networks with PyTorch.
+Whether you're aspiring to create a smarter virtual assistant or simply eager to deepen your understanding of deep learning, this comprehensive introduction sets the stage for your journey into building the AI of the future.
 
 Let's dive in and start transforming raw data into intelligent insights!
         """)
@@ -105,31 +105,107 @@ Let's dive in and start transforming raw data into intelligent insights!
         b = st.slider("Bias (b)", -3.0, 3.0, 0.5)
         
         def neuron(x, w, b):
-            return max(0, x * w + b)  # ReLU activation
+            # Ensure inputs are tensors
+            x = torch.tensor([x]) if isinstance(x, (int, float)) else x
+            w = torch.tensor([w]) if isinstance(w, (int, float)) else w
+            b = torch.tensor([b]) if isinstance(b, (int, float)) else b
+            
+            output = torch.relu(torch.matmul(x, w) + b)
+            print(f"A neuron transforms input {x.item()} using weight {w.item()} and bias {b.item()} to produce output {output.item()}")
+            return output
         
         output = neuron(x, w, b)
         st.write(f"Neuron Output: {output}")
         
-        st.write("### 🛠️ Implement a Neuron in Python")
+        st.write("### 🎯 Activity: Implement a Neuron in Python")
         st.write("Now, let's implement this concept in code. This is how your AI assistant processes raw input using a simple neuron.")
         code = """
 import torch
 
 def neuron(x, w, b):
-    return torch.relu(torch.matmul(x, w) + b)
+    # Ensure inputs are tensors
+    x = torch.tensor([x]) if isinstance(x, (int, float)) else x
+    w = torch.tensor([w]) if isinstance(w, (int, float)) else w
+    b = torch.tensor([b]) if isinstance(b, (int, float)) else b
+    
+    output = torch.relu(torch.matmul(x, w) + b)
+    print(f"A neuron transforms input {x.item()} using weight {w.item()} and bias {b.item()} to produce output {output.item()}")
+    return output
 
-x = torch.tensor([1.0])
-w = torch.tensor([2.0])
-b = torch.tensor([0.5])
+# Test the neuron
+x = 1.0  # Input signal
+w = 2.0  # Weight
+b = 0.5  # Bias
 output = neuron(x, w, b)
 """
         st.code(code, language="python")
         if st.button("Run Code", key="neuron_code"):
             st.write(execute_code(code))
         
-        st.write("### 🎯 Activity: Experiment with Different Values")
-        st.write("Modify the values of `x`, `w`, and `b` and observe how the output changes.")
-        st.write("💡 Hint: What happens when the weight is negative? Try making `w` a large negative number and see how the neuron behaves.")
+        st.write("### 🧪 Try This!")
+        st.write("Try different combinations of inputs, weights, and biases to understand how neurons behave:")
+
+        code_examples = """
+import torch
+
+def neuron(x, w, b):
+    # Ensure inputs are tensors
+    x = torch.tensor([x]) if isinstance(x, (int, float)) else x
+    w = torch.tensor([w]) if isinstance(w, (int, float)) else w
+    b = torch.tensor([b]) if isinstance(b, (int, float)) else b
+    
+    output = torch.relu(torch.matmul(x, w) + b)
+    print(f"A neuron transforms input {x.item()} using weight {w.item()} and bias {b.item()} to produce output {output.item()}")
+    return output
+
+# Example 1: Positive weight and bias
+print("\\nExample 1: Standard positive values")
+x, w, b = 1.0, 2.0, 0.5
+output = neuron(x, w, b)
+
+# Example 2: Negative weight
+print("\\nExample 2: Negative weight")
+x, w, b = 1.0, -2.0, 0.5
+output = neuron(x, w, b)
+
+# Example 3: Large bias
+print("\\nExample 3: Large positive bias")
+x, w, b = 1.0, 2.0, 5.0
+output = neuron(x, w, b)
+
+# Example 4: Large negative weight
+print("\\nExample 4: Large negative weight")
+x, w, b = 1.0, -5.0, 0.5
+output = neuron(x, w, b)
+"""
+
+        st.code(code_examples, language="python")
+        if st.button("Run Examples", key="neuron_examples"):
+            st.write(execute_code(code_examples))
+
+        st.markdown("""
+### 💡 Key Observations:
+
+1. **Positive Weights (Example 1)**
+   - Amplifies the input signal
+   - Output increases with larger weights
+   - Common in features that positively contribute to the decision
+
+2. **Negative Weights (Example 2)**
+   - Reduces or blocks the input signal
+   - ReLU prevents negative outputs (sets them to zero)
+   - Useful for inhibitory connections
+
+3. **Large Bias (Example 3)**
+   - Creates a baseline activation
+   - Can make neuron "fire" even with small inputs
+   - Helps control activation threshold
+
+4. **Large Negative Weight (Example 4)**
+   - Strongly inhibits the input
+   - Often results in zero output due to ReLU
+   - Shows how neurons can "turn off" certain inputs
+""")
         
         st.write("### ❓ Comprehension Question")
         st.write("What happens if the bias `b` is very large compared to `w * x`?")
@@ -250,43 +326,57 @@ for name, result in outputs.items():
             st.write(execute_code(code_examples))
 
         st.markdown("""
-### 📝 Key Observations:
+### 🧪 Try This!
+1. Experiment with different inputs:
+   ```python
+   # Test negative inputs
+   input_tensor = torch.tensor([[-1.0, -2.0]])
+   
+   # Test extreme values
+   input_tensor = torch.tensor([[-10.0, 10.0]])
+   
+   # Test mixed values
+   input_tensor = torch.tensor([[-1.5, 2.5]])
+   
+   # Test near-zero values
+   input_tensor = torch.tensor([[-0.1, 0.1]])
+   ```
 
-1. **ReLU (Rectified Linear Unit)**
-   - Outputs zero for negative values
-   - Passes positive values unchanged
-   - Good for deep networks due to reduced vanishing gradient problems
-   - Common in hidden layers
+### 💡 Key Observations:
+1. **ReLU Behavior**
+   - Zeros out negative values
+   - Preserves positive values unchanged
+   - Creates sparse activations
 
-2. **Sigmoid**
-   - Squashes values between 0 and 1
-   - Useful for binary classification
-   - Output can be interpreted as probability
-   - Can suffer from vanishing gradients
+2. **Sigmoid Properties**
+   - Squashes all values between 0 and 1
+   - Smooth transition around zero
+   - Saturates for extreme values
 
-3. **Tanh (Hyperbolic Tangent)**
+3. **Tanh Characteristics**
    - Squashes values between -1 and 1
+   - Steeper gradient than sigmoid
    - Zero-centered output
-   - Often performs better than sigmoid
-   - Still can have vanishing gradient issues
 
-4. **Softmax**
-   - Converts outputs to probabilities that sum to 1
-   - Commonly used in classification tasks
-   - Emphasizes the highest values
-   - Used in output layer for multi-class classification
+4. **Layer Size Effects**
+   - More neurons capture more patterns
+   - Wider layers allow more feature combinations
+   - Deeper networks learn hierarchical features
 
-### 🔍 Try This:
-1. Change the input values to negative numbers
-2. Try different layer sizes
-3. Combine multiple activation functions in sequence
-4. Observe how each activation function handles extreme values
+### 🔍 What to Watch For:
+- **Confidence Levels**: Higher numbers indicate stronger preferences
+- **Response Balance**: How the AI distributes attention between:
+  - Providing information
+  - Asking questions
+  - Taking actions
+- **Decision Making**: How quickly and confidently the AI chooses a response
 
 ### 💡 Tips:
-- ReLU is often the default choice for hidden layers
-- Sigmoid is good for binary outputs
-- Softmax is ideal for multi-class classification
-- Tanh can be better than sigmoid for hidden layers due to its zero-centered output
+- Start with ReLU for hidden layers
+- Use sigmoid for binary classification outputs
+- Use tanh when zero-centered outputs are important
+- Monitor for dead neurons (always output zero)
+- Combine different activations based on your needs
 """)
         
         st.write("### ❓ Comprehension Question")
@@ -308,7 +398,7 @@ for name, result in outputs.items():
         st.write("### 🧑‍🏫 What is a Feedforward Neural Network?")
         st.write("A feedforward neural network is the backbone of many AI systems, including AI assistants. In these systems, data flows from the input layer to the output layer through one or more hidden layers without looping back. This structure enables the network to process raw inputs—such as user queries or voice commands—and transform them into meaningful outputs.")
         
-        st.write("### 🛠️ Building a Feedforward Neural Network")
+        st.write("### 🎯 Activity: Building a Feedforward Neural Network")
         st.write("Let's create a neural network that processes data through multiple layers and see how the data transforms at each step:")
 
         code = """
@@ -373,7 +463,7 @@ output = model(sample_input)
             st.write(execute_code(code))
 
         st.markdown("""
-        ### 🧪 Experiment with Different AI Behaviors
+        ### 🧪 Try This!
 
         Here's how to adjust the model's behavior by changing its configuration:
 
@@ -475,7 +565,7 @@ output = model(sample_input)
         st.write("### 🧑‍🏫 The Role of Parameters in AI Assistants")
         st.write("Just as humans develop different personalities and response styles, an AI assistant's behavior is shaped by its parameters - weights and biases. Weights determine how strongly the AI responds to different inputs (like paying more attention to urgent requests), while biases represent the AI's default tendencies (like being naturally helpful even with minimal input).")
         
-        st.write("### 🛠️ Inspecting AI Assistant Parameters")
+        st.write("### 🎯 Activity: Inspecting AI Assistant Parameters")
         code = """
 import torch
 import torch.nn as nn
@@ -521,7 +611,7 @@ output = assistant(complex_input)
             st.write(execute_code(code))
 
         st.markdown("""
-        ### 🧪 Experiment with AI Assistant Personality
+        ### 🧪 Try This!
 
         Here's how different parameter configurations shape your AI's behavior:
 
@@ -604,6 +694,55 @@ output = assistant(complex_input)
         """)
 
         st.markdown("""
+        ### 🧪 Try This!
+        1. Configure different parameter settings:
+           ```python
+           # Responsive configuration (high weights)
+           with torch.no_grad():
+               model.weight.fill_(2.0)  # Strong response
+               model.bias.fill_(0.0)    # Neutral baseline
+
+           # Stable configuration (low weights)
+           with torch.no_grad():
+               model.weight.fill_(0.5)  # Measured response
+               model.bias.fill_(0.0)    # Neutral baseline
+
+           # Proactive configuration (positive bias)
+           with torch.no_grad():
+               model.weight.fill_(1.0)  # Normal response
+               model.bias.fill_(0.5)    # Helpful baseline
+           ```
+
+        ### 🔍 What to Watch For:
+        - **Weight Magnitudes**: How different weight values affect output strength
+        - **Bias Effects**: How baseline values influence activation
+        - **Parameter Interactions**: How weights and biases work together
+        - **Training Stability**: How parameter values affect learning
+        - **Gradient Flow**: How easily the network can update parameters
+
+        ### 💡 Key Observations:
+        1. **Weight Behavior**
+           - Larger weights create stronger connections
+           - Small weights make gradual changes
+           - Weight signs determine excitation/inhibition
+
+        2. **Bias Impact**
+           - Positive bias creates default activation
+           - Negative bias raises activation threshold
+           - Zero bias relies purely on weighted inputs
+
+        3. **Parameter Scaling**
+           - Too large: may cause instability
+           - Too small: may slow learning
+           - Balanced: promotes stable learning
+
+        4. **Initialization Effects**
+           - Random initialization breaks symmetry
+           - Proper scaling prevents vanishing/exploding gradients
+           - Initial values influence final solution
+        """)
+
+        st.markdown("""
         ### ❓ Comprehension Question
         
         If you want to create an AI assistant that proactively offers help even before users ask detailed questions, which parameter adjustment would be most effective?
@@ -676,7 +815,7 @@ print("\\nCombined features for decision:\\n", combined)
             st.write(execute_code(code))
 
         st.markdown("""
-        ### 🧪 Experiment with AI Assistant Data Processing
+        ### 🧪 Try This!
 
         Here's how tensors handle different aspects of AI assistant interactions:
 
@@ -867,7 +1006,7 @@ for epoch in range(5):
             st.write(execute_code(code))
 
         st.markdown("""
-        ### 🧪 Experiment with AI Assistant Training
+        ### 🧪 Try This!
 
         Here's how to modify the training process for different assistant behaviors:
 
@@ -1081,7 +1220,7 @@ analyze_learning(scenarios['Ideal Learning'])
             st.write(execute_code(code))
 
         st.markdown("""
-        ### 🧪 Experiment with Different Learning Scenarios
+        ### 🧪 Try This!
 
         #### 1. Ideal Learning Pattern
         ```python

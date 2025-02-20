@@ -117,7 +117,7 @@ Let's dive in and start transforming raw data into intelligent insights!
         output = neuron(x, w, b)
         st.write(f"Neuron Output: {output}")
         
-        st.write("### 🎯 Activity: Implement a Neuron in Python")
+        st.write("###  🛠️ Implement a Neuron in Python")
         st.write("Now, let's implement this concept in code. This is how your AI assistant processes raw input using a simple neuron.")
         code = """
 import torch
@@ -276,7 +276,7 @@ output = model(torch.tensor([[1.0, 2.0]]))
         if st.button("Run Code", key="activation_nn_code"):
             st.write(execute_code(code))
         
-        st.write("### 🎯 Activity: Compare Activation Functions")
+        st.write("###  🛠️ Compare Activation Functions")
         st.write("Let's explore how different activation functions transform the same input data. Below are examples using various activation functions:")
 
         code_examples = """
@@ -398,7 +398,7 @@ for name, result in outputs.items():
         st.write("### 🧑‍🏫 What is a Feedforward Neural Network?")
         st.write("A feedforward neural network is the backbone of many AI systems, including AI assistants. In these systems, data flows from the input layer to the output layer through one or more hidden layers without looping back. This structure enables the network to process raw inputs—such as user queries or voice commands—and transform them into meaningful outputs.")
         
-        st.write("### 🎯 Activity: Building a Feedforward Neural Network")
+        st.write("###  🛠️ Building a Feedforward Neural Network")
         st.write("Let's create a neural network that processes data through multiple layers and see how the data transforms at each step:")
 
         code = """
@@ -565,7 +565,7 @@ output = model(sample_input)
         st.write("### 🧑‍🏫 The Role of Parameters in AI Assistants")
         st.write("Just as humans develop different personalities and response styles, an AI assistant's behavior is shaped by its parameters - weights and biases. Weights determine how strongly the AI responds to different inputs (like paying more attention to urgent requests), while biases represent the AI's default tendencies (like being naturally helpful even with minimal input).")
         
-        st.write("### 🎯 Activity: Inspecting AI Assistant Parameters")
+        st.write("### 🛠️  Inspecting AI Assistant Parameters")
         code = """
 import torch
 import torch.nn as nn
@@ -694,32 +694,6 @@ output = assistant(complex_input)
         """)
 
         st.markdown("""
-        ### 🧪 Try This!
-        1. Configure different parameter settings:
-           ```python
-           # Responsive configuration (high weights)
-           with torch.no_grad():
-               model.weight.fill_(2.0)  # Strong response
-               model.bias.fill_(0.0)    # Neutral baseline
-
-           # Stable configuration (low weights)
-           with torch.no_grad():
-               model.weight.fill_(0.5)  # Measured response
-               model.bias.fill_(0.0)    # Neutral baseline
-
-           # Proactive configuration (positive bias)
-           with torch.no_grad():
-               model.weight.fill_(1.0)  # Normal response
-               model.bias.fill_(0.5)    # Helpful baseline
-           ```
-
-        ### 🔍 What to Watch For:
-        - **Weight Magnitudes**: How different weight values affect output strength
-        - **Bias Effects**: How baseline values influence activation
-        - **Parameter Interactions**: How weights and biases work together
-        - **Training Stability**: How parameter values affect learning
-        - **Gradient Flow**: How easily the network can update parameters
-
         ### 💡 Key Observations:
         1. **Weight Behavior**
            - Larger weights create stronger connections

@@ -4,6 +4,9 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np
 import matplotlib.pyplot as plt
+import csv
+from datetime import datetime
+import os
 
 def execute_code(code_str):
     try:
@@ -1372,9 +1375,33 @@ analyze_learning(scenarios['Ideal Learning'])
             )
             
             if st.button("Submit Feedback"):
-                st.success("Thank you for your feedback! Your input helps us improve the learning experience.")
-                # Here you would typically save the feedback to a database
-                # For now, we'll just display a thank you message
+                # Create feedback data
+                feedback_data = {
+                    'timestamp': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+                    'rating': rating,
+                    'feedback_text': feedback_text
+                }
+
+                # Define the CSV file path
+                csv_file = 'feedback.csv'
+                
+                # Check if file exists to determine if we need to write headers
+                file_exists = os.path.isfile(csv_file)
+                
+                # Write to CSV file
+                try:
+                    with open(csv_file, mode='a', newline='', encoding='utf-8') as file:
+                        writer = csv.DictWriter(file, fieldnames=feedback_data.keys())
+                        
+                        # Write headers if file doesn't exist
+                        if not file_exists:
+                            writer.writeheader()
+                            
+                        writer.writerow(feedback_data)
+                    
+                    st.success("Thank you for your feedback! Your input helps us improve the learning experience.")
+                except Exception as e:
+                    st.error(f"An error occurred while saving feedback: {str(e)}")
 
 
 if __name__ == "__main__":

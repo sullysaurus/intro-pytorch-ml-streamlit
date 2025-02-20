@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import csv
 from datetime import datetime
 import os
+import pandas as pd
 
 def execute_code(code_str):
     try:
@@ -1402,6 +1403,47 @@ analyze_learning(scenarios['Ideal Learning'])
                     st.success("Thank you for your feedback! Your input helps us improve the learning experience.")
                 except Exception as e:
                     st.error(f"An error occurred while saving feedback: {str(e)}")
+
+            # Add a divider between submission and display sections
+            st.divider()
+            
+            # Feedback Display Section
+            st.header("📊 Feedback Overview")
+            
+            try:
+                # Read the CSV file
+                df = pd.read_csv('feedback.csv')
+                
+                # Display basic statistics
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.metric("Average Rating", f"{df['rating'].mean():.1f}/5")
+                with col2:
+                    st.metric("Total Responses", len(df))
+                
+                # Display the feedback table with most recent entries first
+                st.subheader("Recent Feedback")
+                df['timestamp'] = pd.to_datetime(df['timestamp'])
+                df_sorted = df.sort_values('timestamp', ascending=False)
+                
+                # Convert timestamp to a more readable format
+                df_sorted['timestamp'] = df_sorted['timestamp'].dt.strftime('%Y-%m-%d %H:%M')
+                
+                # Display the table with custom formatting
+                st.dataframe(
+                    df_sorted,
+                    column_config={
+                        "timestamp": "Date & Time",
+                        "rating": st.column_config.NumberColumn("Rating", help="Rating out of 5"),
+                        "feedback_text": "Comments"
+                    },
+                    hide_index=True
+                )
+                
+            except FileNotFoundError:
+                st.info("No feedback submitted yet.")
+            except Exception as e:
+                st.error(f"Error loading feedback: {str(e)}")
 
 
 if __name__ == "__main__":

@@ -37,13 +37,13 @@ def execute_code(code_str):
         return f"❌ Error: {str(e)}\n\n💡 Tip: Check your syntax and make sure all required modules are imported."
 
 def main():
-    st.title("Neural Networks with PyTorch")
+    st.title("Intro to Pytorch for Machine Learning")
     
     with st.expander("📚 Introduction"):
         st.markdown("""
-   # Welcome to Neural Networks with PyTorch
+# Welcome to Intro to PyTorch for Machine Learning
 
-In this lab, you'll embark on a journey into the world of deep learning using PyTorch, a powerful framework that enables rapid experimentation and efficient model development. Our mission is to guide you through the foundational concepts and practical skills necessary to build an AI assistant—one that can process and understand complex data like text, audio, and images, much like the human brain.
+In this lab, you'll embark on a journey into the world of deep learning using PyTorch, a powerful framework that enables rapid experimentation and efficient model development. Our mission is to guide you through the foundational concepts and practical skills necessary to build machine learning models using PyTorch's intuitive and flexible tools.
 
 ## Overview
 
@@ -51,7 +51,7 @@ Neural networks are inspired by the biological neural networks of the human brai
 
 - **Neurons and Layers:** Discover the basic building blocks of neural networks. Learn how individual neurons process inputs through weights, biases, and activation functions.
 - **Activation Functions:** Understand why non-linear activation functions such as ReLU, Sigmoid, Tanh, and Softmax are essential for capturing complex patterns in data.
-- **Feedforward Neural Networks:** Construct and train a simple feedforward network that transforms raw inputs into actionable outputs—similar to how an AI assistant interprets user commands.
+- **Feedforward Neural Networks:** Construct and train a simple feedforward network that transforms raw inputs into meaningful outputs.
 - **Model Parameters and Weights:** Delve into the inner workings of model parameters. Learn how adjustments to weights and biases directly influence the network's predictions and overall performance.
 - **Data Handling with Tensors:** Master the use of tensors, PyTorch's core data structure, which facilitates efficient computation and automatic differentiation.
 - **Training a Neural Network:** Gain practical experience in training a model. Learn about loss functions, gradient descent, and optimization techniques that iteratively improve the network's performance.
@@ -60,12 +60,12 @@ Neural networks are inspired by the biological neural networks of the human brai
 ## What You Will Achieve
 
 By the end of this lab, you will:
-- Develop a strong conceptual foundation of how neural networks operate.
-- Gain hands-on experience implementing various components of neural networks in PyTorch.
-- Learn how to adjust and optimize model parameters to enhance performance.
-- Understand the complete cycle of training, validating, and evaluating a model—skills essential for building robust AI assistants.
+- Develop a strong conceptual foundation of how neural networks operate
+- Gain hands-on experience implementing various components of neural networks in PyTorch
+- Learn how to adjust and optimize model parameters to enhance performance
+- Understand the complete cycle of training, validating, and evaluating machine learning models
 
-Whether you're aspiring to create a smarter virtual assistant or simply eager to deepen your understanding of deep learning, this comprehensive introduction sets the stage for your journey into building the AI of the future.
+Whether you're just starting your journey in machine learning or looking to expand your deep learning toolkit, this comprehensive introduction sets the stage for your journey into building powerful neural networks with PyTorch.
 
 Let's dive in and start transforming raw data into intelligent insights!
         """)
